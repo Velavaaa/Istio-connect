@@ -1,0 +1,15 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: {{ include "myapp.fullname" . }}-gateway
+  namespace: default  # Adjust namespace as needed
+spec:
+  selector:
+    istio: ingressgateway  # Default Istio ingress gateway
+  servers:
+    - port:
+        number: 80
+        name: http
+        protocol: HTTP
+      hosts:
+        - "127.0.0.1.nip.io"  # Minikube IP with nip.io for domain resolution

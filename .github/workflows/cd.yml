@@ -1,0 +1,36 @@
+# Name of the deployment workflow
+name: CD
+
+# Trigger CD after CI workflow completes
+on:
+  workflow_run:
+    workflows: ["CI"]
+    types:
+      - completed
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    steps:
+      # Step 1: Check out the code
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Step 2: Get version from git commit
+      - name: Get Version
+        id: version
+        run: |
+          echo "VERSION=v$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+
+      # Step 3: Update Helm values with new image versions
+      - name: Update Helm Values
+        run: |
+          cd myapp
+          yq eval ".backend.image.tag = \"${{ env.VERSION }}\"" -i values.yaml
+          yq eval ".frontend.image.tag = \"${{ env.VERSION }}\"" -i values.yaml
+
+      # Step 4: Deploy using Helm
+      - name: Deploy to Kubernetes
+        run: |
+          helm upgrade --install myapp ./myapp
