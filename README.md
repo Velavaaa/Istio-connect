@@ -341,26 +341,35 @@ Step 7: creating kubernetes secret for password
 Step 8 : install istio
 
 1.Download Istio Manually with curl:
+
   curl -L https://github.com/istio/istio/releases/download/1.23.0/istio-1.23.0-win.zip -o istio.zip
 
 2.Unzip the Downloaded File:
+
   unzip istio.zip
   
 3.Navigate to the Istio Directory:
+
   cd istio-1.23.0
+  
 4.Add istioctl to PATH:   
+
   export PATH=$PATH:$(pwd)/bin
 
 5.Install Istio: Install Istio using istioctl:  
+
   istioctl install --set profile=demo -y
 
 6.Label Your Namespace:  
+
   kubectl label namespace <namespace> istio-injection=enabled    #(namespace - default)
 
-7. Restart Existing Pods  
+7. Restart Existing Pods
+   
   kubectl rollout restart deployment -n <your-namespace> / helm upgrade myapp ./myapp
 
 8.Verify the Installation
+
   kubectl get pods -n istio-system
 
  $To adapt your current NGINX Ingress setup for Istio, we’ll need to create Istio Gateway and VirtualService resources
