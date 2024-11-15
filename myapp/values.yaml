@@ -27,7 +27,7 @@ postgres:
 backend:
   replicaCount: 1
   image:
-    repository: poovizhiraj/backend-image
+    repository: indhura/backend-image
     tag: v2
     pullPolicy: IfNotPresent
   service:
@@ -46,7 +46,7 @@ backend:
 frontend:
   replicaCount: 1
   image:
-    repository: poovizhiraj/frontend-image
+    repository: indhura/frontend-image
     tag: latest
     pullPolicy: IfNotPresent
   service:
