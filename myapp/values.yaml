@@ -28,7 +28,7 @@ backend:
   replicaCount: 1
   image:
     repository: indhura/backend-image
-    tag: v2
+    tag: latest
     pullPolicy: IfNotPresent
   service:
     type: LoadBalancer
