@@ -2,19 +2,21 @@
 name: CI
 
 # When to run this workflow
-jobs:
-  build:
-    runs-on: self-hosted
 on:
   push:
     branches: [ main ]  # Runs on pushes to main branch
   pull_request:
     branches: [ main ]  # Runs on PRs targeting main branch
 
-# Environment variables used across jobs
-env:
-  BACKEND_IMAGE: indhura/backend-image    # Change to your Docker Hub username
-  FRONTEND_IMAGE: indhura/frontend-image   # Change to your Docker Hub username
+# Define the jobs
+jobs:
+  build:
+    runs-on: self-hosted
+
+    # Environment variables used across jobs
+    env:
+      BACKEND_IMAGE: indhura/backend-image    # Change to your Docker Hub username
+      FRONTEND_IMAGE: indhura/frontend-image  # Change to your Docker Hub username
 
     steps:
       # Step 1: Check out the code
