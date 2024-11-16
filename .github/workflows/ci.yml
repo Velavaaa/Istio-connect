@@ -2,6 +2,9 @@
 name: CI
 
 # When to run this workflow
+jobs:
+  build:
+    runs-on: self-hosted
 on:
   push:
     branches: [ main ]  # Runs on pushes to main branch
@@ -13,9 +16,6 @@ env:
   BACKEND_IMAGE: indhura/backend-image    # Change to your Docker Hub username
   FRONTEND_IMAGE: indhura/frontend-image   # Change to your Docker Hub username
 
-jobs:
-  build:
-    runs-on: self-hosted
     steps:
       # Step 1: Check out the code
       - name: Checkout code
